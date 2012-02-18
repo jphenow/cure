@@ -3,6 +3,9 @@
 require 'rubygems'
 require_relative '../lib/cure'
 
-options = Cure::Option.new
-options.evaluate_input
-puts options.urls
+evald_options = Cure::Option.new
+evald_options.evaluate_input
+env = Cure::Environment.new evald_options.options
+curl = Cure::Curl.new env.environment
+puts curl
+puts curl.run

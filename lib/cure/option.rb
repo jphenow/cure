@@ -13,37 +13,35 @@ module Cure
     def evaluate_input
       optparse = OptionParser.new do |opts|
         opts.banner = "Usage: cure [@options] URL(s)"
-        @options[:verbose] = false
         opts.on( '-v', '--verbose', 'All info') do
           @options[:verbose] = true
         end
 
-        @options[:global] = true
         opts.on( '-ng', '--nonglobal', 'Don\'t use environment variables') do
           @options[:global] = galse
         end
 
-        @options[:user] = ''
         opts.on( '-u USER', '--user USER', 'Username for cURL') do |u|
           @options[:user] = u
         end
 
-        @options[:password] = ''
         opts.on( '-p PASS', '--password PASS', 'Password for cURL') do |p|
           @options[:password] = p
         end
 
-        @options[:header] = ''
         opts.on( '-h HEADER', '--header HEADER', 'Header @options') do |h|
-          @options[:@options] = h
+          @options[:header] = h
+          #@options[:header]['Content-Type'] = 'application/xml'
         end
 
-        @options[:params] = ''
         opts.on( '-a PARAMS', '--params PARAMS', 'Params for post') do |p|
           @options[:params] = p
         end
 
-        @options[:method] = ''
+        opts.on( '-b URL', '--base URL', 'Base URL') do |p|
+          @options[:base_url] = p
+        end
+
         opts.on( '-m METHOD', '--method METHOD', 'Params for post') do |m|
           @options[:method] = m
         end
@@ -68,7 +66,7 @@ command!
         end
       end
       optparse.parse!
-      @urls = ARGV
+      @options[:url] = ARGV.first
     end
   end
 end
