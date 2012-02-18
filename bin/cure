@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require_relative '../lib/cure'
+
+options = Cure::Option.new
+options.evaluate_input
+puts options.urls
