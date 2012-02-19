@@ -12,13 +12,15 @@ module Cure
 
     def evaluate_input
       optparse = OptionParser.new do |opts|
+        @options[:verbose] = false
         opts.banner = "Usage: cure [@options] URL(s)"
         opts.on( '-v', '--verbose', 'All info') do
           @options[:verbose] = true
         end
 
+        @options[:global] = true
         opts.on( '-ng', '--nonglobal', 'Don\'t use environment variables') do
-          @options[:global] = galse
+          @options[:global] = false
         end
 
         opts.on( '-u USER', '--user USER', 'Username for cURL') do |u|
@@ -67,6 +69,7 @@ command!
       end
       optparse.parse!
       @options[:url] = ARGV.first
+      self
     end
   end
 end
