@@ -7,6 +7,9 @@ module Cure
       @sess = Patron::Session.new
       @sess.base_url = @options[:base_url]
       @sess.timeout = 10
+      [:username, :password].each do |e|
+        @sess.send(eq(e), options[e]) if options[e]
+      end
       @options[:header].each do |key, value|
         @sess.headers[key.to_s] = value
       end unless @options[:header].nil?
@@ -40,6 +43,12 @@ module Cure
       if param_methods.include? @options[:method] and @options[:params].nil?
         abort "Parameters required for #{param_methods.to_s}"
       end
+    end
+
+    private
+
+    def eq(x)
+      (x.to_s << "=").to_sym
     end
   end
 end

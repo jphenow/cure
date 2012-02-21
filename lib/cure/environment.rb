@@ -4,10 +4,11 @@ module Cure
     attr_accessor :environment
     def initialize(favored = nil)
       @environment = {}
-      suffixes = %w{BASE_URL USER PASSWORD HEADER}
+      suffixes = %w{BASE_URL USER PASSWORD HEADER CONFIG}
       suffixes.each do |suffix|
         @environment[suffix.downcase.to_sym] = ENV[PREFIX + suffix]
       end
+      @environment[:config] ||= '~/.cure.yml'
       merge!(favored) unless favored.nil?
     end
 
