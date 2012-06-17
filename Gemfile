@@ -1,3 +1,4 @@
-source 'http://rubygems.org'
+source "http://rubygems.org"
 
-gem 'patron'
+# Specify your gem's dependencies in cure.gemspec
+gemspec

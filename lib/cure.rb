@@ -1,3 +1,4 @@
-require_relative './cure/option'
-require_relative './cure/environment'
-require_relative './cure/curl'
+require 'cure/version'
+require 'cure/option'
+require 'cure/environment'
+require 'cure/curl'
