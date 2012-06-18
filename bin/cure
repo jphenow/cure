@@ -1,8 +1,37 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
-require_relative '../lib/cure'
+require 'thor'
+require 'cure'
 
-evald_options = Cure::Option.new
-env = Cure::Environment.new evald_options.evaluate_input.options
-Cure::Curl.new(env.environment).run
+class CureExecutable < Thor
+  # Welcome to the cure!
+  # This is a cURL utility that takes managing your header
+  # out of your hands.. finally.
+  # Fill in these envrionment variables:
+  #   * CURE_BASE_URL   # ie. 'http://api.github.com'
+  #   * CURE_USER       # user for API you're curling
+  #   * CURE_PASSWORD   # password for above user
+  #   * CURE_HEADER     #
+  # Then, unless otherwise specified, you can just use the cure
+  # and you only have to specify the things that matter in your
+  # command!
+  desc "curl", "Runs fancy cURL command"
+  method_option :verbose, :aliases => "-v", :default => false, :desc => "Verbose output"
+  method_option :global, :aliases => "-g", :default => true, :desc => "Use Global settings"
+  method_option :user, :aliases => "-u", :desc => "Username for cURL"
+  method_option :password, :aliases => "-p", :desc => "Password for cURL"
+  method_option :header, :aliases => "-H", :desc => "Header options"
+  method_option :params, :aliases => "-P", :desc => "Params for post"
+  method_option :url, :aliases => "-U", :desc => "Base URL"
+  method_option :method, :aliases => "-m", :desc => "Method"
+  def curl
+    Cure::Curl.new(options).run
+  end
+
+  desc "install", "Install settings file to currend directory"
+  def install
+  end
+end
+
+CureExecutable.start
