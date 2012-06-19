@@ -17,6 +17,7 @@ class CureExecutable < Thor
   # and you only have to specify the things that matter in your
   # command!
   desc "curl", "Runs fancy cURL command"
+  # TODO l18n
   method_option :verbose, :aliases => "-v", :default => false, :desc => "Verbose output"
   method_option :global, :aliases => "-g", :default => true, :desc => "Use Global settings"
   method_option :user, :aliases => "-u", :desc => "Username for cURL"
